@@ -91,6 +91,31 @@ app.post("/api/deleteStream", (req,res)=> {
     res.json({ok : true})
 
 })
+isFire = false;
+fireWebsocketTemp = "";
+posNameTemp = "";
+app.post("/api/SocketDataReceive", (req, res)=>{
+    const {websocketURL, posName} = req.body;
+    fireWebsocketTemp = websocketURL;
+    posNameTemp = posName;
+    isFire = true;
+
+    res.json({ok : true})
+
+})
+
+app.get("/api/fireDetection",(req, res)=>{
+    if(isFire === false){
+        res.send({nodetection : "No detection", detection : false, detectionUrl : "none", posName : ""});
+    }
+    else{
+        isFire = false;
+        console.log(fireWebsocketTemp)
+        console.log(posNameTemp)
+        res.send({detection : true, detectionUrl : fireWebsocketTemp, posName : posNameTemp});
+    }
+    
+})
 
 
 app.listen(3000, () => console.log("CCTV Websocket Server On"));
