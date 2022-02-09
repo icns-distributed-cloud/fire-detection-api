@@ -109,10 +109,11 @@ app.get("/api/fireDetection",(req, res)=>{
         res.send({nodetection : "No detection", detection : false, detectionUrl : "none", posName : ""});
     }
     else{
-        isFire = false;
+        
         console.log(fireWebsocketTemp)
         console.log(posNameTemp)
         res.send({detection : true, detectionUrl : fireWebsocketTemp, posName : posNameTemp});
+        isFire = false;
     }
     
 })
